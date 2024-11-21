@@ -13,10 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 public class GlobalExceptionHandler {
 
 	@ExceptionHandler(ApiException.class)
-	public ResponseEntity<Object> handleApiException(ApiException e) {
+	public ResponseEntity<String> handleApiException(ApiException e) {
 		log.warn("handleApiException", e);
 
-		return makeErrorResponseEntity(e.getHttpStatus(), e.getMessage(), e.getCode());
+		return ResponseEntity.status(e.getHttpStatus()).body(e.getMessage());
 	}
 
 	private ResponseEntity<Object> makeErrorResponseEntity(HttpStatus httpStatus, String message, String code) {

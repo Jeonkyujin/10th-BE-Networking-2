@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,6 +66,13 @@ public class PostController {
 		response.put("totalPages", postPage.getTotalPages());
 
 		return ResponseEntity.ok(response);
+	}
+
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<DataResponse<String>> deletePostBySingle(@PathVariable Long id) {
+		postService.deletePostBySingle(id);
+
+		return ResponseEntity.ok(DataResponse.success("게시글이 성공적으로 삭제 되었습니다."));
 	}
 
 

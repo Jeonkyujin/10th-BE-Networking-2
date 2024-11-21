@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,4 +65,12 @@ public class PostService {
 		Pageable pageable = PageRequest.of(page, size);
 		return postRepository.findAllByOrderByViewsDesc(pageable);
 	}
+
+	public void deletePostBySingle(Long id) {
+		Post post = postRepository.findById(id)
+			.orElseThrow(() -> ApiException.of(HttpStatus.NOT_FOUND,"해당 ID의 게시글을 찾을 수 없습니다", ""));
+		postRepository.delete(post);
+
+	}
+
 }
