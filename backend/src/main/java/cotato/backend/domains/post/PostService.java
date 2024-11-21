@@ -3,6 +3,7 @@ package cotato.backend.domains.post;
 import static cotato.backend.common.exception.ErrorCode.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -46,5 +47,13 @@ public class PostService {
 	public void savePostBySingle(PostDTO postDTO) {
 		Post post = new Post(postDTO.getTitle(), postDTO.getContent(), postDTO.getName());
 		postRepository.save(post);
+	}
+
+	public Post readPostBySingle(Long id) {
+		Optional<Post> optionalPost = postRepository.findById(id);
+		Post post = optionalPost.get();
+		post.setViews(post.getViews() + 1);
+
+		return post;
 	}
 }

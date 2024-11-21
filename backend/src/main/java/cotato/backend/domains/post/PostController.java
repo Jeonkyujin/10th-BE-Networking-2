@@ -1,6 +1,8 @@
 package cotato.backend.domains.post;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,5 +31,12 @@ public class PostController {
 		postService.savePostBySingle(postDTO);
 
 		return ResponseEntity.ok(DataResponse.ok());
+	}
+
+	@GetMapping("/read/{id}")
+	public ResponseEntity<Post> readPostBySingle(@PathVariable Long id){
+		Post post = postService.readPostBySingle(id);
+
+		return ResponseEntity.ok(post);
 	}
 }
