@@ -20,6 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class PostService {
 
+	private final PostRepository postRepository;
+
 	// 로컬 파일 경로로부터 엑셀 파일을 읽어 Post 엔터티로 변환하고 저장
 	public void saveEstatesByExcel(String filePath) {
 		try {
@@ -38,5 +40,10 @@ public class PostService {
 			log.error("Failed to save estates by excel", e);
 			throw ApiException.from(INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	public void savePostBySingle(PostDTO postDTO) {
+		Post post = new Post(postDTO.getTitle(), postDTO.getContent(), postDTO.getName());
+		postRepository.save(post);
 	}
 }

@@ -23,4 +23,11 @@ public class PostController {
 
 		return ResponseEntity.ok(DataResponse.ok());
 	}
+
+	@PostMapping("/single")
+	public ResponseEntity<DataResponse<Void>> savePostBySingle(@RequestBody PostDTO postDTO){
+		postService.savePostBySingle(postDTO);
+
+		return ResponseEntity.ok(DataResponse.ok());
+	}
 }
