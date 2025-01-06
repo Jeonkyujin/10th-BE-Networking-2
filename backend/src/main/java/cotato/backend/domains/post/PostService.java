@@ -56,7 +56,7 @@ public class PostService {
 	public Post readPostBySingle(Long id) {
 		Optional<Post> optionalPost = postRepository.findById(id);
 		Post post = optionalPost.get();
-		post.setViews(post.getViews() + 1);
+		post.update(1);
 
 		return post;
 	}
