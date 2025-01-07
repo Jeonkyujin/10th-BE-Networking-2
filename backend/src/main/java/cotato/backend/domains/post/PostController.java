@@ -50,7 +50,6 @@ public class PostController {
 
 		return ResponseEntity.ok(post);
 	}
-
 	@GetMapping("/views")
 	public ResponseEntity<Map<String, Object>> readByView(@RequestParam(defaultValue = "0") int page){
 		int size = 10;
