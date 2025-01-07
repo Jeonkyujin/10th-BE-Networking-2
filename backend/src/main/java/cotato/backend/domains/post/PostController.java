@@ -42,7 +42,7 @@ public class PostController {
 		return ResponseEntity.ok(DataResponse.ok());
 	}
 
-	@GetMapping("/posts/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Post> readPostBySingle(@PathVariable Long id){
 		Post post = postService.readPostBySingle(id);
 
@@ -52,19 +52,8 @@ public class PostController {
 	@GetMapping("/views")
 	public ResponseEntity<Map<String, Object>> readByView(@RequestParam(defaultValue = "0") int page){
 		int size = 10;
-		Page<Post> postPage = postService.getPosts(page, size);
-		List<Map<String, Object>> filteredPosts = postPage.getContent().stream().map(post -> {
-			Map<String, Object> postMap = new HashMap<>();
-			postMap.put("id", post.getId());
-			postMap.put("title", post.getTitle());
-			postMap.put("name", post.getName());
-			return postMap;
-		}).collect(Collectors.toList());
-
-		Map<String, Object> response = new HashMap<>();
-		response.put("posts", filteredPosts); // 게시글 리스트
-		response.put("currentPage", postPage.getNumber()); // 현재 페이지
-		response.put("totalPages", postPage.getTotalPages());
+		Map<String, Object> response;
+		response = postService.getPosts(page, size);
 
 		return ResponseEntity.ok(response);
 	}
