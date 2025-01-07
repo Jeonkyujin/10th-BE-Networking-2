@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import cotato.backend.common.dto.DataResponse;
 import cotato.backend.domains.post.dto.request.SavePostsByExcelRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -35,7 +36,7 @@ public class PostController {
 	}
 
 	@PostMapping("/single")
-	public ResponseEntity<DataResponse<Void>> savePostBySingle(@RequestBody PostDTO postDTO){
+	public ResponseEntity<DataResponse<Void>> savePostBySingle(@Valid@RequestBody PostDTO postDTO){
 		postService.savePostBySingle(postDTO);
 
 		return ResponseEntity.ok(DataResponse.ok());
