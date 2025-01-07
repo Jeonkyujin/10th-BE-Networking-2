@@ -57,7 +57,7 @@ public class PostService {
 	}
 
 	public Post readPostBySingle(Long id) {
-		Post post = postRepository.findById(id).orElseThrow(() -> ApiException.of(HttpStatus.NOT_FOUND, "해당 ID의 게시글을 핮을 수 없습니다", ""));
+		Post post = postRepository.findByIdForUpdate(id).orElseThrow(() -> ApiException.of(HttpStatus.NOT_FOUND, "해당 ID의 게시글을 핮을 수 없습니다", ""));
 		post.update(1);
 
 		return post;

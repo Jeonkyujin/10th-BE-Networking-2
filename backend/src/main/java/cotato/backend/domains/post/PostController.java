@@ -45,7 +45,7 @@ public class PostController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Post> readPostBySingle(@PathVariable Long id){
+	public ResponseEntity<Post> readPostBySingle(@PathVariable Long id)  {
 		Post post = postService.readPostBySingle(id);
 
 		return ResponseEntity.ok(post);
