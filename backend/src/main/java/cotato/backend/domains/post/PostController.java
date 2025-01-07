@@ -42,14 +42,14 @@ public class PostController {
 		return ResponseEntity.ok(DataResponse.ok());
 	}
 
-	@GetMapping("/read/{id}")
+	@GetMapping("/posts/{id}")
 	public ResponseEntity<Post> readPostBySingle(@PathVariable Long id){
 		Post post = postService.readPostBySingle(id);
 
 		return ResponseEntity.ok(post);
 	}
 
-	@GetMapping("/readByViews")
+	@GetMapping("/views")
 	public ResponseEntity<Map<String, Object>> readByView(@RequestParam(defaultValue = "0") int page){
 		int size = 10;
 		Page<Post> postPage = postService.getPosts(page, size);
@@ -69,7 +69,7 @@ public class PostController {
 		return ResponseEntity.ok(response);
 	}
 
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<DataResponse<String>> deletePostBySingle(@PathVariable Long id) {
 		postService.deletePostBySingle(id);
 
