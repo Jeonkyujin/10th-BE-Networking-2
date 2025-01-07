@@ -29,10 +29,12 @@ public class PostController {
 	private final PostService postService;
 
 	@PostMapping("/excel")
-	public ResponseEntity<DataResponse<Void>> savePostsByExcel(@RequestBody SavePostsByExcelRequest request) {
+	public ResponseEntity<DataResponse<Long>> savePostsByExcel(@RequestBody SavePostsByExcelRequest request) {
+		Long startTime = System.currentTimeMillis();
 		postService.saveEstatesByExcel(request.getPath());
-
-		return ResponseEntity.ok(DataResponse.ok());
+		Long endTime = System.currentTimeMillis();
+		Long elapsedTime = endTime - startTime;
+		return ResponseEntity.ok(DataResponse.from(elapsedTime));
 	}
 
 	@PostMapping("/single")

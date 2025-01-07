@@ -28,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PostService {
 
 	private final PostRepository postRepository;
+	private final BatchRepository batchRepository;
 
 	// 로컬 파일 경로로부터 엑셀 파일을 읽어 Post 엔터티로 변환하고 저장
 	public void saveEstatesByExcel(String filePath) {
@@ -42,7 +43,7 @@ public class PostService {
 					return new Post(title, content, name);
 				})
 				.collect(Collectors.toList());
-			postRepository.saveAll(posts);
+			batchRepository.insert(posts);
 
 		} catch (Exception e) {
 			log.error("Failed to save estates by excel", e);
